@@ -1,6 +1,6 @@
 FROM node:carbon
 
-# Create app directory
+# Create app directory (c) CRUD
 WORKDIR /usr/src/app
 
 # Install app dependencies

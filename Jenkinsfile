@@ -1,5 +1,3 @@
-jenkinsfile
-
 node {
     try {
         notifyBuild('STARTED')

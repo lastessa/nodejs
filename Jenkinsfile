@@ -7,18 +7,18 @@ pipeline {
 // Building your Test Images
     stage('BUILD') {
       parallel {
-        stage('Express Image') {
+        stage('Build Image') {
           steps {
-            sh 'docker build -t autocarmaua/nodejs .'
-            sh 'docker tag autocarmaua/nodejs index.docker.io/autocarmaua/nodejs:${env.BUILD_NUMBER}'
-            sh 'docker push index.docker.io/autocarmaua/nodejs:${env.BUILD_NUMBER}'
-            sh 'docker tag autocarmaua/nodejs index.docker.io/autocarmaua/nodejs:latest'
-            sh 'docker push index.docker.io/autocarmaua/nodejs:latest'
+          //withDockerRegistry([ credentialsId: "fd057578-f2ed-49af-9478-c94395fd8634", url: "https://index.docker.io/v1/" ]) {
+          sh 'docker build -t autocarmaua/nodejs .'
+          
+        }
+            
           }
         }
         stage('Test-Unit Image') {
           steps {
-            sh 'docker build -t autocarmaua/nodejs .'
+            sh 'echo parallel'
           }
         }
       }
@@ -29,22 +29,21 @@ pipeline {
       }
     }
 // Performing Software Tests
-    stage('TEST') {
+    stage('PUSH') {
       parallel {
-        stage('Mocha Tests') {
+        stage('Push Image to registry') {
           steps {
-            sh 'docker run --name nodeapp-dev --network="bridge" -d \
-            -p 9000:9000 nodeapp-dev:trunk'
-            sh 'docker run --name test-image -v $PWD:/JUnit --network="bridge" \
-            --link=nodeapp-dev -d -p 9001:9000 \
-            test-image:latest'
+            withDockerRegistry([ credentialsId: "fd057578-f2ed-49af-9478-c94395fd8634", url: "https://index.docker.io/v1/" ]) {
+            sh 'docker tag autocarmaua/nodejs index.docker.io/autocarmaua/nodejs:${env.BUILD_NUMBER}'
+            sh 'docker tag autocarmaua/nodejs index.docker.io/autocarmaua/nodejs:latest'
+            sh 'docker push index.docker.io/autocarmaua/nodejs:latest'
+            }
           }
         }
         stage('Quality Tests') {
           steps {
-            sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-            sh 'docker tag nodeapp-dev:trunk <DockerHub Username>/nodeapp-dev:latest'
-            sh 'docker push <DockerHub Username>/nodeapp-dev:latest'
+            sh 'echo parallel 2'
+            
           }
         }
       }

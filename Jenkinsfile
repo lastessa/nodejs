@@ -33,7 +33,10 @@ pipeline {
       }
     }
     //stage
-    stage("Docker Pull and Update Swarm Cluster") {
+    stage("Deploy And Update Swarm") {
+	    when {
+	    	branch "master"
+	    }
     steps {
       script {
          sh "echo starting deploy"	  

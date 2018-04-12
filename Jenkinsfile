@@ -15,7 +15,7 @@ pipeline {
     }
     stage("Tunnel into Swarm") {
       when {
-        // skip this stage unless on Master branch test
+        // skip this stage unless on Master branch test tag
         branch "master"
       }
       steps {

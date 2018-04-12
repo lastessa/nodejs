@@ -28,7 +28,7 @@ node {
         }
 
         // Pull, Run, and Test on ACS 'stage'... 
-        stage('ACS Docker Pull and Run') {
+        stage('Docker Pull and Update Swarm Cluster') {
            app = docker.image('autocarmaua/nodejs:latest')
            docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
            app.pull()

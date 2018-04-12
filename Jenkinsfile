@@ -8,7 +8,7 @@ pipeline {
                 docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
                 app.push("${env.BUILD_NUMBER}")
                 app.push('latest')
-			echo "${TAG_VERSION}"
+			//echo "${TAG_VERSION}"
                 }
         }
       }

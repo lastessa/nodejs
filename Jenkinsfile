@@ -1,3 +1,4 @@
+pipeline {
 node {
     try {
         notifyBuild('STARTED')
@@ -100,4 +101,5 @@ def gitCheckThatOut(String branch, String vcsUrl) {
     echo "${tagName}"
     // set DisplayName
     currentBuild.displayName = tagName
+}
 }

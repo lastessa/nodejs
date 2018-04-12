@@ -2,9 +2,8 @@ node {
     try {
         notifyBuild('STARTED')
     dir('demo node js') {
-        stages {
-        // Mark the code checkout 'stage'....
         
+        // Mark the code checkout 'stage'....
         stage('Checkout from GitHub') {
             
             git url: 'https://github.com/lastessa/nodejs'
@@ -37,10 +36,10 @@ node {
        
         stage('Docker Pull and Update Swarm Cluster') {
             
-            when {
-		        branch 'master'
-		    }
-            steps {
+           // when {
+	//	        branch 'master'
+	//	    }
+            
            app = docker.image('autocarmaua/nodejs:latest')
            docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
            app.pull()
@@ -48,8 +47,8 @@ node {
            sh "docker service update \
             --image autocarmaua/nodejs:latest \
             node-js"
-            }
-          }
+            
+          
         }
       }
     }

@@ -85,3 +85,16 @@ def notifyBuild(String buildStatus = 'STARTED') {
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
 }
+def gitCheckThatOut(String branch, String vcsUrl) {
+    branch =  branch ?: 'master'
+    // cleanup
+    gitClean()
+    // checkout
+    git branch: "${branch}", url: "${vcsUrl}"
+    // get last tag
+    sh "git describe --abbrev=0 --tags > .git/tagName"
+    tagName = readFile('.git/tagName')
+    echo "${tagName}"
+    // set DisplayName
+    currentBuild.displayName = tagName
+}

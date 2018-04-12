@@ -1,9 +1,11 @@
-pipeline {
 node {
+	
     try {
         notifyBuild('STARTED')
     dir('demo node js') {
         // Mark the code checkout 'stage'....
+	    pipeline {
+		    stages {
         stage('Checkout from GitHub') {
             
             git url: 'https://github.com/lastessa/nodejs'
@@ -43,6 +45,8 @@ node {
 	   app.pull()
            //app.run('--name node-demo -p 80:8000')
            sh "docker service update --image autocarmaua/nodejs:latest node-js" 
+	   }
+	}
         }
       }
      
@@ -102,4 +106,4 @@ def gitCheckThatOut(String branch, String vcsUrl) {
     // set DisplayName
     currentBuild.displayName = tagName
 }
-}
+

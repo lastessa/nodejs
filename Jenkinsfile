@@ -13,14 +13,24 @@ pipeline {
         }
       }
     }
-    stage("Evaluate Master") {
+    stage("Open SSH Tunnel to Zimbra Swarm Cluster") {
       when {
         // skip this stage unless on Master branch
         branch "master"
       }
       steps {
-        echo "World"
-        echo "Heal it"
+        script {
+            sshagent(['d458a36c-e315-4411-9505-e19e7ba59575']) {
+                    sh 'date'
+                    sh 'ssh -vvv -o StrictHostKeyChecking=no root@zimbra.konverter.com.ua uname -a'
+                    sh 'ssh -fNL 2375:localhost:2375 -p 22 root@zimbra.konverter.com.ua -o StrictHostKeyChecking=no -o ServerAliveInterval=240 && echo "ACS SSH Tunnel successfully opened..."'
+                }
+                // Check tunnel is open and set DOCKER_HOST env var
+           //env.DOCKER_HOST=':2375'
+           env.DOCKER_HOST='unix:///var/run/docker.sock'
+           sh 'echo "DOCKER_HOST is $DOCKER_HOST"'
+           sh 'docker info'
+        }
       }
     }
   }

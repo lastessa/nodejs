@@ -2,6 +2,7 @@ node {
     try {
         notifyBuild('STARTED')
     dir('demo node js') {
+        stages {
         // Mark the code checkout 'stage'....
         
         stage('Checkout from GitHub') {
@@ -35,17 +36,22 @@ node {
         // Pull, Run, and Test on ACS 'stage'... 
        
         stage('Docker Pull and Update Swarm Cluster') {
-           
+            
+            when {
+		        branch 'master'
+		    }
+            steps {
            app = docker.image('autocarmaua/nodejs:latest')
            docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
-           //when { branch "master" }
            app.pull()
            //app.run('--name node-demo -p 80:8000')
            sh "docker service update \
             --image autocarmaua/nodejs:latest \
             node-js"
             }
+          }
         }
+      }
     }
         } catch (e) {
     // If there was an exception thrown, the build failed

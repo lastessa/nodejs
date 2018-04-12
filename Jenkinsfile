@@ -35,7 +35,7 @@ node {
         // Pull, Run, and Test on ACS 'stage'... 
        
         stage('Docker Pull and Update Swarm Cluster') {
-		sh "echo "starting deploy""
+		sh "echo starting deploy"
             
            when {
 		        branch 'master'

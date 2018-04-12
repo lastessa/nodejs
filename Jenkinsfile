@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage("Build") {
+    stage("Build Image") {
       steps {
         script {
                 app = docker.build('autocarmaua/nodejs')
@@ -12,7 +12,7 @@ pipeline {
         }
       }
     }
-    stage("Open SSH Tunnel to Zimbra Swarm Cluster") {
+    stage("Tunnel into Swarm") {
       when {
         // skip this stage unless on Master branch
         branch "master"

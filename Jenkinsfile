@@ -79,11 +79,11 @@ def notifyBuild(String buildStatus = 'STARTED') {
   // Send notifications
   slackSend (color: colorCode, message: summary)
 
-  emailext(
-      subject: subject,
-      body: details,
-      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    )
+  //emailext(
+  //    subject: subject,
+  //    body: details,
+  //    recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+  //  )
 }
 def gitCheckThatOut(String branch, String vcsUrl) {
     branch =  branch ?: 'master'

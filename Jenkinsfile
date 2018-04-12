@@ -21,7 +21,7 @@ node {
         stage('Open SSH Tunnel to Zimbra Swarm Cluster') {
                 // Open SSH Tunnel to ACS Cluster
                 sshagent(['d458a36c-e315-4411-9505-e19e7ba59575']) {
-                    sh 'date -r'
+                    sh 'date'
                     sh 'ssh -vvv -o StrictHostKeyChecking=no root@zimbra.konverter.com.ua uname -a'
                     sh 'ssh -fNL 2375:localhost:2375 -p 22 root@zimbra.konverter.com.ua -o StrictHostKeyChecking=no -o ServerAliveInterval=240 && echo "ACS SSH Tunnel successfully opened..."'
                 }

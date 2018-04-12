@@ -1,7 +1,5 @@
 pipeline {
   agent any
-try {
-        notifyBuild('STARTED')
   stages {
     stage("Build") {
       steps {
@@ -53,13 +51,5 @@ try {
     }
 
   }
-  } catch (e) {
-    // If there was an exception thrown, the build failed
-    currentBuild.result = "FAILED"
-    throw e
-  } finally {
-    // Success or failure, always send notifications
-    notifyBuild(currentBuild.result)
-  }
- }
+  
 }

@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  dir('demo node js') {
   stages {
     stage("Build Image") {
       steps {
@@ -56,5 +55,5 @@ pipeline {
     }
 
   }
- }
+ 
 }

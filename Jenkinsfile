@@ -2,6 +2,9 @@ node {
     try {
         notifyBuild('STARTED')
     dir('demo node js') {
+	     when {
+		        branch 'master'
+		    }
         
         // Mark the code checkout 'stage'....
         stage('Checkout from GitHub') {

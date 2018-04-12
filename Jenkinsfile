@@ -33,5 +33,23 @@ pipeline {
         }
       }
     }
+    //stage
+    stage("Docker Pull and Update Swarm Cluster") {
+    steps {
+      script {
+         sh "echo starting deploy"	  
+           app = docker.image('autocarmaua/nodejs:latest')
+           docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
+           
+		     
+	        app.pull()
+          //app.run('--name node-demo -p 80:8000')
+          sh "docker service update --image autocarmaua/nodejs:latest node-js" 
+        }
+      }
+    }
+    
+    }
+
   }
 }

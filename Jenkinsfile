@@ -1,16 +1,16 @@
 pipeline {
   agent any
   
-  stages {
-    stage('Decide tag on Docker Hub') {
-      agent none
-      steps {
-        script {
-          env.TAG_ON_DOCKER_HUB = input message: 'User input required',
-              parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
-        }
-      }
-    }
+ // stages {
+   // stage('Decide tag on Docker Hub') {
+     // agent none
+      //steps {
+      //  script {
+       //   env.TAG_ON_DOCKER_HUB = input message: 'User input required',
+        //      parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
+        //}
+      //}
+    //}
 
 
     stage("Build Image") {
@@ -64,6 +64,25 @@ pipeline {
           //app.run('--name node-demo -p 80:8000')
           sh "docker service update --image autocarmaua/nodejs:latest node-js" 
           slackSend (color: '#66cd00', message: "SUCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+      }
+    }
+
+    stage("Checking swarm slave") {
+      when {
+        // skip this stage unless on Master branch test tagtest
+    
+        branch "master"
+      }
+      steps {
+        script {
+            sshagent(['cf946ad4-99cc-4884-9d9d-442b2b3a7c69']) {
+                    sh 'date'
+                    sh 'ssh -vvv -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
+                   
+                }
+               
+          
         }
       }
     }

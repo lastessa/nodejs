@@ -74,7 +74,7 @@ pipeline {
     //stage checking slave
     stage("Checking swarm slave") {
       when {
-        // skip this stage unless on Master branch test tagtest
+        // skip this stage unless on Master branch 
     
         branch "master"
       }

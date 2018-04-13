@@ -1,11 +1,6 @@
 pipeline {
-  agent any
-   parameters {
-        choice(choices: "$environment", description: '', name: 'ENVIRONMENT')
-        string(defaultValue: "$emailRecipients",
-                description: 'List of email recipients',
-                name: 'EMAIL_RECIPIENTS')
-    }
+  agent none
+   
   stages {
     stage("Build Image") {
       steps {
@@ -63,30 +58,7 @@ pipeline {
     }
     
     }
-    stage('User Input') {
-            // when directive allows the Pipeline to determine whether the stage should be executed depending on the given condition
-            // built-in conditions - branch, expression, allOf, anyOf, not etc.
-            when {
-                // Execute the stage when the specified Groovy expression evaluates to true
-                expression {
-                    return params.ENVIRONMENT ==~ /(?i)(STG|PRD)/
-                }
-            }
-            /**
-             * steps section defines a series of one or more steps to be executed in a given stage directive
-             */
-            steps {
-                // script step takes a block of Scripted Pipeline and executes that in the Declarative Pipeline
-                script {
-                    // This step pauses Pipeline execution and allows the user to interact and control the flow of the build.
-                    // Only a basic "process" or "abort" option is provided in the stage view
-                    input message: '', ok: 'Proceed',
-                            parameters: [
-                                    string(name: '', description: ''),
-                            ]
-                }
-            }
-        }
+    
 
   }
  

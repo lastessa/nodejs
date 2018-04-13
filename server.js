@@ -1,5 +1,5 @@
 'use strict';
-
+var os = require('os'); 
 const express = require('express');
 
 // Constants for starting
@@ -12,6 +12,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   //res.send('k8s pod is OK\n');
+  var os = require('os'); 
   res.send(os.hostname() );
 });
 

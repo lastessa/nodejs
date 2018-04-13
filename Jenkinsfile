@@ -1,6 +1,6 @@
 pipeline {
   agent none
-  node {
+  
   stages {
     stage("Build Image") {
       steps {
@@ -61,5 +61,5 @@ pipeline {
     
 
   }
- }
+ 
 }

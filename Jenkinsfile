@@ -2,6 +2,8 @@ pipeline {
   agent any
   
  stages {
+
+
    // stage('Decide tag on Docker Hub') {
      // agent none
       //steps {
@@ -69,6 +71,26 @@ pipeline {
     }
     
     }
+    //stage checking slave
+    stage("Checking swarm slave") {
+      when {
+        // skip this stage unless on Master branch test tagtest
+    
+        branch "master"
+      }
+      steps {
+        script {
+            sshagent(['cf946ad4-99cc-4884-9d9d-442b2b3a7c69']) {
+                    sh 'date'
+                    sh 'ssh -vvv -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
+                   
+                }
+               
+          
+        }
+      }
+    }
+    
     
 
   }

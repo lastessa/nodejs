@@ -1,7 +1,7 @@
 pipeline {
   agent any
   
- // stages {
+ stages {
    // stage('Decide tag on Docker Hub') {
      // agent none
       //steps {

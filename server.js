@@ -10,7 +10,7 @@ const HOST = '0.0.0.0';
 const app = express();
 app.get('/', (req, res) => {
   //res.send('k8s pod is OK\n');
-  res.send(err, server.address());
+  res.send(server.address());
 });
 
 app.listen(PORT, HOST);

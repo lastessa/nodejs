@@ -7,10 +7,9 @@ const PORT = 8082;
 const HOST = '0.0.0.0';
 
 // App
-//const app = express();
-var express = require('express'),
-    app = express(),
-    server  = require('http').createServer(app);
+const app = express();
+
+server  = require('http').createServer(app);
 
 app.get('/', (req, res) => {
   //res.send('k8s pod is OK\n');

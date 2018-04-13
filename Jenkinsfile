@@ -51,6 +51,7 @@ pipeline {
 	        app.pull()
           //app.run('--name node-demo -p 80:8000')
           sh "docker service update --image autocarmaua/nodejs:latest node-js" 
+          slackSend (color: '#66cd00', message: "SUCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
       }
     }

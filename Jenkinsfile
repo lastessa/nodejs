@@ -80,7 +80,7 @@ pipeline {
       }
       steps {
         script {
-            sshagent(['cf946ad4-99cc-4884-9d9d-442b2b3a7c69']) {
+            sshagent(['15783b26-1be2-42ee-9acc-b2d310d379d9']) {
                     sh 'date'
                     sh 'ssh -vvv -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
                     sh 'docker ps'

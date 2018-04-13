@@ -12,8 +12,9 @@ const app = express();
 
 app.get('/', (req, res) => {
   //res.send('k8s pod is OK\n');
+  //sdfsdf
   var os = require('os'); 
-  res.send(os.hostname() );
+  res.send(os.hostname());
 });
 
 app.listen(PORT, HOST);

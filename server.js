@@ -9,7 +9,8 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Server started node js22221\n');
+  //res.send('k8s pod is OK\n');
+  res.send(req.originalUrl);
 });
 
 app.listen(PORT, HOST);

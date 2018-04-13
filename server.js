@@ -12,6 +12,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   var os = require('os'); 
+  //asd
   //res.send(os.hostname());
   res.send('swarm balancer pod is OK\n');
 });

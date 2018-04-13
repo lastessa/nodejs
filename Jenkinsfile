@@ -47,6 +47,7 @@ pipeline {
            env.DOCKER_HOST='unix:///var/run/docker.sock'
            sh 'echo "DOCKER_HOST is $DOCKER_HOST"'
            sh 'docker info'
+           sh 'ip ad sh'
         }
       }
     }
@@ -81,10 +82,8 @@ pipeline {
       steps {
         script {
             sshagent(['15783b26-1be2-42ee-9acc-b2d310d379d9']) {
-                    sh 'date'
-                    sh 'ssh -vvv -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
-                    sh 'docker ps'
-                    sh 'ip ad sh'
+              sh 'ssh -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
+              sh 'ssh -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua ip ad sh'
                 }
                
           

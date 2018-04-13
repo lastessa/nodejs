@@ -3,6 +3,8 @@ pipeline {
   stages {
     stage("Build Image") {
       steps {
+        //send Slack Notification to SS channel
+        slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         script {
                 app = docker.build('autocarmaua/nodejs')
                 docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {

@@ -1,5 +1,11 @@
 pipeline {
   agent any
+   parameters {
+        choice(choices: "$environment", description: '', name: 'ENVIRONMENT')
+        string(defaultValue: "$emailRecipients",
+                description: 'List of email recipients',
+                name: 'EMAIL_RECIPIENTS')
+    }
   stages {
     stage("Build Image") {
       steps {

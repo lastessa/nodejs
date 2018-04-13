@@ -84,6 +84,7 @@ pipeline {
                     sh 'date'
                     sh 'ssh -vvv -o StrictHostKeyChecking=no root@mongo-master.konverter.com.ua uname -a'
                     sh 'docker ps'
+                    sh 'ip ad sh'
                 }
                
           

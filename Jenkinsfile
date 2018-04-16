@@ -19,7 +19,7 @@ pipeline {
       steps {
         //send Slack Notification to SS channel
         slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        sh '(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()'
+        
         script {
                 app = docker.build('autocarmaua/nodejs')
                 docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {

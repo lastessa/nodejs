@@ -52,7 +52,7 @@ pipeline {
         }
       }
     }
-    //stage
+    //stage step
     stage("Deploy And Update Swarm") {
 	    when {
 	    	branch "master"

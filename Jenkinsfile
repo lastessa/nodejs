@@ -12,8 +12,8 @@ pipeline {
         //      parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
         def userInput = input message: 'enter git details',
      parameters: [
-     string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
-     string(defaultValue: '', description: 'repo url', name: 'url')
+     string(defaultValue: 'master', description: 'branch name', name: 'branch'),
+     //string(defaultValue: '', description: 'repo url', name: 'url')
      ]
 
     git branch: userInput['branch'], credentialsId: 'creds', url: userInput['url']

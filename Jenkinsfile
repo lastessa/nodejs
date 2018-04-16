@@ -32,7 +32,7 @@ pipeline {
         }
       }
     }
-    stage("Tunnel into Swarm Prod") {
+    stage("Entering Swarm") {
       //when {
       //  branch "master"
       //}

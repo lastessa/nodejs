@@ -72,7 +72,7 @@ pipeline {
         }
       }
     }
-    
+  }
     
     //stage step
     stage("Deploy And Update Swarm") {

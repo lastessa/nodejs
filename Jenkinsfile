@@ -17,7 +17,7 @@ pipeline {
 
     stage("Build Image") {
       steps {
-        //send Slack Notification to SS channel
+        //send Slack Notification to SS channel with tag asd
         slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         
         script {

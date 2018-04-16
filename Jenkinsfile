@@ -97,7 +97,7 @@ pipeline {
     
     }
     //stage checking slave
-    stage("Checking swarm slave") {
+    stage("Checking SWARM") {
       
       steps {
         script {

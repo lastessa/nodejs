@@ -23,7 +23,6 @@ stage ('input') {
 
     git branch: userInput['branch'], credentialsId: 'credseb427b3a-81e9-4893-b573-51bfabb1a492', url: userInput['url']
    }
-}
 
     stage("Build Image") {
       steps {

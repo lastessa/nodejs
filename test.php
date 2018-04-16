@@ -1,4 +1,4 @@
 <?php
 phpinfo();
-//еуыеasdasd
+//еуыеasdasdASDASD
 ?>

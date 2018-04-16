@@ -4,25 +4,23 @@ pipeline {
  stages {
 
 
-   // stage('Decide tag on Docker Hub') {
-     // agent none
-      //steps {
-      //  script {
+    stage('Decide tag on Docker Hub') {
+      agent none
+      steps {
+        script {
        //   env.TAG_ON_DOCKER_HUB = input message: 'User input required',
         //      parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
-        //}
-      //}
-    //}
-stage ('input') { 
-
-   def userInput = input message: 'enter git details',
+        def userInput = input message: 'enter git details',
      parameters: [
      string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
      string(defaultValue: '', description: 'repo url', name: 'url')
      ]
 
-    git branch: userInput['branch'], credentialsId: 'credseb427b3a-81e9-4893-b573-51bfabb1a492', url: userInput['url']
-   }
+    git branch: userInput['branch'], credentialsId: 'creds', url: userInput['url']
+        }
+      }
+    }
+
 
     stage("Build Image") {
       steps {

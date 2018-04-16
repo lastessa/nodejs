@@ -75,7 +75,7 @@ pipeline {
   }
     
     //stage step
-    stage("Deploy And Update Swarm") {
+    stage("Deploy to Production") {
 	    when {
 	    	branch "master"
 	    }
@@ -98,11 +98,7 @@ pipeline {
     }
     //stage checking slave
     stage("Checking swarm slave") {
-      when {
-        // skip this stage unless on Master branch 
-    
-        branch "master"
-      }
+      
       steps {
         script {
             sshagent(['15783b26-1be2-42ee-9acc-b2d310d379d9']) {

@@ -13,10 +13,10 @@ pipeline {
       def userInput = input message: 'enter git details',
      parameters: [
      string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
-     string(defaultValue: '', description: 'repo url', name: 'url')
+     //string(defaultValue: '', description: 'repo url', name: 'url')
      ]
 
-    git branch: userInput['branch'], credentialsId: 'creds', url: userInput['url']  
+    git branch: userInput['branch'], credentialsId: 'eb427b3a-81e9-4893-b573-51bfabb1a492', url: userInput['https://github.com/lastessa/nodejs']  
       }
     }
   }

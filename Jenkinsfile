@@ -32,16 +32,12 @@ pipeline {
         }
       }
     }
-    stage("Tunnel into Swarm") {
+    stage("Tunnel into Swarm Prod") {
       //when {
       //  branch "master"
       //}
       steps {
-        when {
-        // skip this stage unless on Master branch test tagtest
-    
-        branch "master"
-      }
+       
         script {
             sshagent(['d458a36c-e315-4411-9505-e19e7ba59575']) {
                     sh 'date'
@@ -57,6 +53,27 @@ pipeline {
         }
       }
     }
+    
+    stage("Deploy to Dev") {
+	    when {
+	    	branch "develop"
+	    }
+    steps {
+      script {
+         sh "echo starting deploy to develop"	  
+           app = docker.image('autocarmaua/nodejs:latest')
+           docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
+           
+		     
+	        app.pull()
+          //app.run('--name node-demo -p 80:8000')
+          sh "docker service update --image autocarmaua/nodejs:latest node-js-develop" 
+          slackSend (color: '#66cd00', message: "SUCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+      }
+    }
+    
+    
     //stage step
     stage("Deploy And Update Swarm") {
 	    when {
@@ -76,6 +93,7 @@ pipeline {
         }
       }
     }
+
     
     }
     //stage checking slave

@@ -10,16 +10,16 @@ pipeline {
         script {
        //   env.TAG_ON_DOCKER_HUB = input message: 'User input required',
         //      parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
-        def userInput = input(
-   id: 'userInput', message: 'Let\'s promote?', parameters: [
-   [$class: 'GitParameterDefinition', description: 'Environment', name: 'env',type: 'Branch'],
-   [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-])
-  echo ("Env: "+userInput['env'])
-  echo ("Target: "+userInput['target'])
-        }
+      def userInput = input message: 'enter git details',
+     parameters: [
+     string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
+     string(defaultValue: '', description: 'repo url', name: 'url')
+     ]
+
+    git branch: userInput['branch'], credentialsId: 'creds', url: userInput['url']  
       }
     }
+  }
 
 
     stage("Build Image") {

@@ -13,7 +13,17 @@ pipeline {
         //}
       //}
     //}
+stage ('input') { 
 
+   def userInput = input message: 'enter git details',
+     parameters: [
+     string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
+     string(defaultValue: '', description: 'repo url', name: 'url')
+     ]
+
+    git branch: userInput['branch'], credentialsId: 'credseb427b3a-81e9-4893-b573-51bfabb1a492', url: userInput['url']
+   }
+}
 
     stage("Build Image") {
       steps {

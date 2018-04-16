@@ -7,17 +7,11 @@ pipeline {
     stage('Decide tag on Docker Hub') {
       agent none
       steps {
-        script {
-       //   env.TAG_ON_DOCKER_HUB = input message: 'User input required',
-        //      parameters: [choice(name: 'Tag on Docker Hub', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build')]
-      def userInput = input message: 'enter git details',
-     parameters: [
-     string(defaultValue: 'dev', description: 'branch name', name: 'branch'),
-     //string(defaultValue: '', description: 'repo url', name: 'url')
-     ]
-
-    git branch: userInput['branch'], credentialsId: 'eb427b3a-81e9-4893-b573-51bfabb1a492', url: userInput['https://github.com/lastessa/nodejs']  
-      }
+       script {
+                    env.RELEASE_SCOPE = input message: 'User input required', ok: 'Release!',
+                            parameters: [choice(name: 'RELEASE_SCOPE', choices: 'patch\nminor\nmajor', description: 'What is the release scope?')]
+                }
+                echo "${env.RELEASE_SCOPE}"123
     }
   }
 

@@ -22,7 +22,7 @@ pipeline {
         slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         
         script {
-                sh(returnStdout: true, script: "git tag --contains").trim()
+                sh(returnStdout: true, script: "git tag --contains").trim() 
                 app = docker.build('autocarmaua/nodejs')
                 docker.withRegistry('https://index.docker.io/v1/', 'fd057578-f2ed-49af-9478-c94395fd8634') {
                 app.push("${env.BUILD_NUMBER}")
@@ -33,12 +33,15 @@ pipeline {
       }
     }
     stage("Tunnel into Swarm") {
-      when {
+      //when {
+      //  branch "master"
+      //}
+      steps {
+        when {
         // skip this stage unless on Master branch test tagtest
     
         branch "master"
       }
-      steps {
         script {
             sshagent(['d458a36c-e315-4411-9505-e19e7ba59575']) {
                     sh 'date'
